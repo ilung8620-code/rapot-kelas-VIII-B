@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>Rapor Digital SMP</title>
+  <link rel="icon" href="assets/logo-smp-al-miftah.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <section id="loginView" class="login-shell">
+    <div class="login-card">
+      <img src="assets/logo-smp-al-miftah.png" alt="Logo sekolah" class="login-logo">
+      <div>
+        <p class="eyebrow">RAPOR DIGITAL</p>
+        <h1>Administrasi Rapor SMP</h1>
+        <p class="muted">Masuk menggunakan akun admin Firebase Authentication.</p>
+      </div>
+      <form id="loginForm" class="stack">
+        <label>Email admin
+          <input id="loginEmail" type="email" autocomplete="username" required placeholder="admin@sekolah.sch.id">
+        </label>
+        <label>Password
+          <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••">
+        </label>
+        <button class="btn primary" type="submit">Masuk</button>
+      </form>
+      <div id="firebaseWarning" class="warning hidden">
+        Konfigurasi Firebase belum diisi. Buka <b>firebase-config.js</b> lalu tempel konfigurasi Web App Firebase Anda.
+      </div>
+    </div>
+  </section>
+
+  <div id="appView" class="app hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img id="brandLogo" src="assets/logo-smp-al-miftah.png" alt="Logo sekolah">
+        <div><strong id="brandName">SMP AL-MIFTAH</strong><span>Rapor Digital</span></div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-btn" data-view="students">👥 <span>Data Siswa</span></button>
+        <button class="nav-btn" data-view="grades">📝 <span>Nilai & Rapor</span></button>
+        <button class="nav-btn" data-view="import">⇧ <span>Import Excel</span></button>
+        <button class="nav-btn" data-view="settings">⚙ <span>Pengaturan Sekolah</span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <small id="userEmail"></small>
+        <button id="logoutBtn" class="btn ghost full">Keluar</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn" aria-label="Buka menu">☰</button>
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <p id="pageSubtitle">Kelola data siswa, nilai, dan cetak rapor.</p>
+        </div>
+        <div class="top-actions">
+          <button id="quickAddBtn" class="btn primary">+ Tambah Siswa</button>
+        </div>
+      </header>
+
+      <section id="view-dashboard" class="view active">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">TAHUN PELAJARAN</p>
+            <h3 id="heroYear">2025/2026 · Semester 2</h3>
+            <p>Rapor dicetak dalam format A4 empat halaman mengikuti contoh yang Anda kirim.</p>
+          </div>
+          <button class="btn light" data-go="grades">Buka Nilai & Rapor</button>
+        </div>
+        <div class="stats-grid">
+          <article class="stat"><span>Total Siswa</span><strong id="statStudents">0</strong><small>tersimpan di Firestore</small></article>
+          <article class="stat"><span>Rapor Terisi</span><strong id="statReports">0</strong><small>periode aktif</small></article>
+          <article class="stat"><span>Kelas Aktif</span><strong id="statClasses">0</strong><small>berdasarkan data siswa</small></article>
+          <article class="stat"><span>Status Firebase</span><strong id="statFirebase">Online</strong><small>Authentication + Firestore</small></article>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h3>Alur kerja</h3><p class="muted">Urutan paling aman untuk mulai memakai aplikasi.</p></div></div>
+          <div class="step-grid">
+            <div class="step"><b>1</b><span>Edit data sekolah dan unggah logo.</span></div>
+            <div class="step"><b>2</b><span>Tambah siswa manual atau import Excel.</span></div>
+            <div class="step"><b>3</b><span>Input/edit nilai per siswa.</span></div>
+            <div class="step"><b>4</b><span>Pratinjau lalu cetak / simpan PDF.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-students" class="view">
+        <div class="panel">
+          <div class="panel-head wrap">
+            <div><h3>Data Siswa</h3><p class="muted">Semua data dapat diperbaiki kapan saja.</p></div>
+            <div class="toolbar">
+              <input id="studentSearch" type="search" placeholder="Cari nama, NIS, NISN, kelas...">
+              <button id="addStudentBtn" class="btn primary">+ Tambah Siswa</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>No</th><th>Nama</th><th>NIS</th><th>NISN</th><th>Kelas</th><th>Alamat</th><th>Aksi</th></tr></thead>
+              <tbody id="studentsBody"></tbody>
+            </table>
+          </div>
+          <div id="studentEmpty" class="empty">Belum ada data siswa.</div>
+        </div>
+      </section>
+
+      <section id="view-grades" class="view">
+        <div class="panel">
+          <div class="panel-head wrap">
+            <div><h3>Nilai & Rapor</h3><p class="muted">Capaian kompetensi dibuat otomatis sesuai nilai dan dapat diedit untuk menyesuaikan kelas/semester.</p></div>
+            <div class="period-pill" id="periodPill">2025/2026 · Semester 2</div>
+          </div>
+          <div class="toolbar grade-filter">
+            <input id="gradeSearch" type="search" placeholder="Cari siswa...">
+            <select id="classFilter"><option value="">Semua kelas</option></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>No</th><th>Nama</th><th>Kelas</th><th>Rata-rata</th><th>Status</th><th>Aksi</th></tr></thead>
+              <tbody id="gradesBody"></tbody>
+            </table>
+          </div>
+          <div id="gradeEmpty" class="empty">Belum ada data siswa.</div>
+        </div>
+      </section>
+
+      <section id="view-import" class="view">
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head"><div><h3>Import Excel</h3><p class="muted">Format .xlsx atau .xls dengan sheet <b>Siswa</b> dan <b>Nilai</b>.</p></div></div>
+            <div class="upload-zone" id="dropZone">
+              <div class="upload-icon">⇧</div>
+              <strong>Pilih file Excel</strong>
+              <p>atau tarik file ke area ini.</p>
+              <input id="excelFile" type="file" accept=".xlsx,.xls" hidden>
+              <button id="chooseExcelBtn" class="btn primary" type="button">Pilih File</button>
+            </div>
+            <div id="importPreview" class="import-preview hidden"></div>
+            <div class="toolbar end">
+              <button id="runImportBtn" class="btn primary hidden">Import ke Firebase</button>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><h3>Template resmi aplikasi</h3><p class="muted">Gunakan template ini agar kolom terbaca dengan benar.</p></div></div>
+            <button id="downloadTemplateBtn" class="btn secondary full">Unduh Template Excel</button>
+            <div class="rules-box">
+              <h4>Aturan penting</h4>
+              <ol>
+                <li>Jangan mengganti nama sheet <b>Siswa</b> dan <b>Nilai</b>.</li>
+                <li>Setiap siswa wajib memiliki NIS atau NISN.</li>
+                <li>Nilai harus berupa angka 0–100.</li>
+                <li>Kolom NIS/NISN pada sheet Nilai harus cocok dengan sheet Siswa.</li>
+                <li>Jika data dengan NIS/NISN sama sudah ada, aplikasi akan memperbarui datanya.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-settings" class="view">
+        <form id="settingsForm" class="panel form-panel">
+          <div class="panel-head"><div><h3>Pengaturan Sekolah</h3><p class="muted">Data ini dipakai otomatis di semua halaman cetak rapor.</p></div></div>
+          <div class="settings-logo-row">
+            <img id="settingsLogoPreview" src="assets/logo-smp-al-miftah.png" alt="Logo sekolah">
+            <div><label>Logo sekolah
+              <input id="schoolLogoFile" type="file" accept="image/png,image/jpeg,image/webp">
+            </label><small>Logo dikompres lalu disimpan langsung di Firestore. Tidak memerlukan Firebase Storage.</small></div>
+          </div>
+          <div class="form-grid">
+            <label>Nama Sekolah<input id="schoolName" required></label>
+            <label>Alamat / Lokasi Singkat<input id="schoolAddress"></label>
+            <label>Kabupaten/Kota untuk tanda tangan<input id="schoolCity"></label>
+            <label>Tanggal Rapor<input id="reportDate" type="date"></label>
+            <label>Tahun Pelajaran<input id="academicYear" placeholder="2025/2026" required></label>
+            <label>Semester<select id="semester"><option value="1">1 (Satu)</option><option value="2">2 (Dua)</option></select></label>
+            <label>Fase Default<input id="defaultPhase" value="D"></label>
+            <label>Kelas Default<input id="defaultClass" value="VII A"></label>
+            <label>Nama Wali Kelas<input id="homeroomName"></label>
+            <label>NIP Wali Kelas<input id="homeroomNip"></label>
+            <label>Nama Kepala Sekolah<input id="principalName"></label>
+            <label>NIP Kepala Sekolah<input id="principalNip"></label>
+            <label class="span-2">Nama kementerian / instansi<textarea id="ministryName" rows="2"></textarea></label>
+          </div>
+          <div class="toolbar end"><button id="saveSettingsBtn" class="btn primary" type="submit">Simpan Pengaturan</button></div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div id="studentModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+    <div class="modal-card wide">
+      <div class="modal-head"><h3 id="studentModalTitle">Tambah Siswa</h3><button class="icon-btn modal-close" data-close="studentModal">×</button></div>
+      <form id="studentForm" class="modal-body">
+        <input type="hidden" id="studentId">
+        <div class="form-grid compact">
+          <label>Nama Lengkap *<input id="sName" required></label>
+          <label>NIS<input id="sNis"></label>
+          <label>NISN<input id="sNisn"></label>
+          <label>Kelas<input id="sClass"></label>
+          <label>Fase<input id="sPhase"></label>
+          <label>Tempat Lahir<input id="sBirthPlace"></label>
+          <label>Tanggal Lahir<input id="sBirthDate" type="date"></label>
+          <label>Jenis Kelamin<select id="sGender"><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></label>
+          <label>Agama<input id="sReligion" value="Islam"></label>
+          <label>Status dalam Keluarga<input id="sFamilyStatus" value="Anak"></label>
+          <label>Anak ke<input id="sChildNo" type="number" min="1"></label>
+          <label>Telepon Siswa<input id="sPhone"></label>
+          <label class="span-2">Alamat Peserta Didik<textarea id="sAddress" rows="2"></textarea></label>
+          <label>Sekolah Asal<input id="sPreviousSchool"></label>
+          <label>Tanggal Diterima<input id="sAcceptedDate" type="date"></label>
+          <label>Nama Ayah<input id="sFather"></label>
+          <label>Nama Ibu<input id="sMother"></label>
+          <label>Pekerjaan Ayah<input id="sFatherJob"></label>
+          <label>Pekerjaan Ibu<input id="sMotherJob"></label>
+          <label class="span-2">Alamat Orang Tua<textarea id="sParentAddress" rows="2"></textarea></label>
+          <label>Telepon Orang Tua<input id="sParentPhone"></label>
+          <label>Nama Wali Siswa<input id="sGuardian"></label>
+          <label>Telepon Wali<input id="sGuardianPhone"></label>
+          <label>Pekerjaan Wali<input id="sGuardianJob"></label>
+          <label class="span-2">Alamat Wali<textarea id="sGuardianAddress" rows="2"></textarea></label>
+        </div>
+        <div class="modal-actions"><button type="button" class="btn ghost modal-close" data-close="studentModal">Batal</button><button class="btn primary" type="submit">Simpan Siswa</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="gradeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gradeModalTitle">
+    <div class="modal-card xwide">
+      <div class="modal-head"><div><h3 id="gradeModalTitle">Input Nilai</h3><p id="gradeStudentInfo" class="muted"></p></div><button class="icon-btn modal-close" data-close="gradeModal">×</button></div>
+      <form id="gradeForm" class="modal-body">
+        <input type="hidden" id="gradeStudentId">
+        <div class="competency-help">Nilai tetap membuat capaian otomatis. Anda dapat mengubah teks capaian untuk setiap mata pelajaran; perubahan disimpan khusus untuk siswa dan periode rapor tersebut.</div>
+        <div id="subjectInputs" class="subject-grid"></div>
+        <h4 class="section-title">Sikap & Ekstrakurikuler</h4>
+        <div class="form-grid compact">
+          <label class="span-2">Sikap Spiritual<textarea id="gSpiritual" rows="2"></textarea></label>
+          <label class="span-2">Sikap Sosial<textarea id="gSocial" rows="2"></textarea></label>
+          <label class="span-2">Keterangan Pramuka<textarea id="gScout" rows="3"></textarea></label>
+          <label>Sakit (hari)<input id="gSick" type="number" min="0" value="0"></label>
+          <label>Izin (hari)<input id="gPermit" type="number" min="0" value="0"></label>
+          <label>Tanpa Keterangan (hari)<input id="gAbsent" type="number" min="0" value="0"></label>
+          <label class="span-2">Catatan Wali Kelas<textarea id="gNote" rows="2"></textarea></label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost modal-close" data-close="gradeModal">Batal</button>
+          <button type="button" id="saveAndPrintBtn" class="btn secondary">Simpan & Pratinjau</button>
+          <button class="btn primary" type="submit">Simpan Nilai</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+*{box-sizing:border-box}
+html,body{margin:0;background:#e8eaed;color:#000}
+body{font-family:"Times New Roman",Times,serif}
+.hidden{display:none!important}
+.center{text-align:center}.bold{font-weight:700}.upper{text-transform:uppercase}.nowrap{white-space:nowrap}.small{font-size:10pt}
+.screen-toolbar{position:sticky;top:0;z-index:50;height:64px;background:#102a28;color:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;font-family:Arial,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.screen-toolbar div{display:grid;gap:2px}.screen-toolbar small{opacity:.75}.screen-toolbar button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer}.screen-toolbar .primary{margin-left:auto;background:#fff;color:#0f5e58}
+.loading,.error-box{font-family:Arial,sans-serif;margin:35px auto;padding:20px;max-width:700px;background:#fff;border-radius:12px;text-align:center}.error-box{color:#8a1f11}
+.pages{display:grid;gap:18px;padding:20px 0}
+.a4{width:210mm;height:297mm;margin:0 auto;background:#fff;box-shadow:0 5px 22px rgba(0,0,0,.18);position:relative;overflow:hidden;font-size:11pt;line-height:1.18;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+
+/* HALAMAN 1 - SAMPUL: posisi dibuat mengikuti contoh foto */
+.cover-page{padding:0;text-align:center}
+.cover-title{position:absolute;top:13.5mm;left:15mm;right:15mm;margin:0;font-size:15.5pt;font-weight:700;line-height:1.35}
+.cover-logo{position:absolute;top:80mm;left:50%;transform:translateX(-50%);width:48mm;height:48mm;object-fit:contain;margin:0}
+.cover-student-box{position:absolute;top:139mm;left:50%;transform:translateX(-50%);width:121mm;min-height:36mm;border:1px solid #111;padding:7.5mm 7mm 6mm;margin:0;font-size:12pt;line-height:1.5}
+.cover-student-box .name{display:inline-block;font-size:13.5pt;font-weight:700;margin:1.5mm 0 .7mm}
+.cover-bottom{position:absolute;top:219mm;left:15mm;right:15mm;margin:0;line-height:1.18}
+.cover-bottom .school{font-size:13pt;font-weight:700}
+.cover-bottom .ministry{font-size:12.5pt;font-weight:700;margin:6.5mm auto 0;max-width:165mm;line-height:1.22}
+
+/* HALAMAN 2 - IDENTITAS */
+.identity-page{padding:0}
+.page-title{position:absolute;top:15mm;left:10mm;right:10mm;font-size:14.5pt;font-weight:700;text-align:center;margin:0}
+.identity-list{position:absolute;top:29.5mm;left:12mm;width:178mm;border-collapse:collapse;font-size:11.2pt;line-height:1.05}
+.identity-list td{padding:1.6mm .6mm;vertical-align:top}
+.identity-list .num{width:9mm;text-align:right;padding-right:2.4mm}
+.identity-list .label{width:57mm}.identity-list .colon{width:5mm;text-align:center}.identity-list .sub{padding-left:9mm}
+.signature-one{position:absolute;top:225mm;right:48mm;width:67mm;text-align:center;font-size:10.8pt;line-height:1.18;}
+.signature-one .space{height:20.5mm}.signature-one .sign-name{text-decoration:underline;font-weight:700;margin-bottom:1mm}
+
+/* HALAMAN 3 - NILAI 1-11 */
+.grades-page{padding:0}
+.report-heading{position:absolute;top:12.5mm;left:12mm;right:12mm;font-size:14.5pt;text-align:center;font-weight:700;line-height:1.35;margin:0}
+.student-meta{position:absolute;top:32.5mm;left:12mm;right:12mm;display:grid;grid-template-columns:1fr 1fr;column-gap:19mm;font-size:10.8pt;line-height:1.12}
+.meta-line{display:grid;grid-template-columns:36mm 5mm 1fr;margin:1.65mm 0;align-items:start}.meta-line b{font-weight:400}
+.report-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.6pt;line-height:1.18}
+.report-table th,.report-table td{border:1px solid #111;padding:2.6mm 2.1mm;vertical-align:middle}
+.report-table th{text-align:center;font-weight:700;padding-top:2.5mm;padding-bottom:2.5mm}
+.report-table .c-no{width:9mm;text-align:center}.report-table .c-subject{width:52mm}.report-table .c-score{width:21mm;text-align:center}.report-table .competency{text-align:left}
+.grades-page-1>.report-table{position:absolute;top:65.5mm;left:12mm;width:186mm}
+
+/* HALAMAN 4 - LANJUTAN RAPOR */
+.grades-page-2{padding:0;font-size:10.3pt}
+.grades-page-2 .report-table{font-size:9.6pt;line-height:1.18}
+.p2-grade{position:absolute;top:11.5mm;left:12mm;width:186mm}
+.p2-attitude{position:absolute;top:44.5mm;left:12mm;width:186mm}
+.p2-extra{position:absolute;top:75.5mm;left:12mm;width:186mm}
+.p2-attendance{position:absolute;top:121.5mm;left:12mm}
+.p2-note{position:absolute;top:157mm;left:12mm;width:186mm}
+.section-label{font-size:10.8pt;font-weight:700;margin:0 0 2mm}
+.simple-table{border-collapse:collapse;width:100%;font-size:10pt;line-height:1.18}
+.simple-table td,.simple-table th{border:1px solid #111;padding:2.2mm 2.3mm;vertical-align:middle}
+.simple-table th{font-weight:700;text-align:center}
+.attitude-table td:first-child{width:35mm;text-align:center;font-weight:700}.attitude-table td{padding-top:2.3mm;padding-bottom:2.3mm}
+.extra-table th:first-child{width:10mm}.extra-table th:nth-child(2){width:59mm}.extra-table td{padding-top:2.2mm;padding-bottom:2.2mm}.extra-table tbody tr:first-child td{height:18.5mm}.extra-table tbody tr:last-child td{height:7.5mm}
+.attendance-table{width:65mm}.attendance-table td{padding-top:1.9mm;padding-bottom:1.9mm}.attendance-table td:nth-child(1){width:34mm}.attendance-table td:nth-child(2){width:18mm;text-align:center}.attendance-table td:nth-child(3){width:13mm}
+.note-box{border:1px solid #111;height:9.5mm;padding:2.2mm 2.4mm;font-size:10pt;line-height:1.15;overflow:hidden}
+.signatures{position:absolute;top:177.5mm;left:12mm;right:12mm;font-size:10.5pt;line-height:1.15}
+.sig-date{text-align:right;margin-bottom:2.2mm}.sig-top{display:grid;grid-template-columns:1fr 1fr;gap:26mm}.sig{text-align:center}.sig-space{height:20.5mm}.sig-name{font-weight:700;text-decoration:underline;margin-bottom:.8mm}.sig-bottom{width:68mm;margin:15mm auto 0}.sig-bottom .sig-space{height:23mm}
+
+@media screen and (max-width:900px){.pages{display:block;overflow-x:auto;padding:12px}.a4{margin:0 0 18px}.screen-toolbar small{display:none}}
+@page{size:A4 portrait;margin:0}
+@media print{
+  html,body{background:#fff;width:210mm}
+  .no-print,.loading,.error-box{display:none!important}
+  .pages{display:block!important;padding:0;margin:0}
+  .a4{width:210mm;height:297mm;margin:0;box-shadow:none;page-break-after:always;break-after:page;transform:none!important}
+  .a4:last-child{page-break-after:auto;break-after:auto}
+}

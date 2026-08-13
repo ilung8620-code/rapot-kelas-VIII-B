@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pratinjau Rapor</title>
+  <link rel="stylesheet" href="report.css">
+</head>
+<body>
+  <div class="screen-toolbar no-print">
+    <button onclick="window.close()">← Kembali</button>
+    <div><b>Pratinjau Rapor A4</b><small>Aktifkan “Background graphics” bila logo/warna tidak tercetak.</small></div>
+    <button class="primary" id="printBtn">Cetak / Simpan PDF</button>
+  </div>
+  <div id="loading" class="loading">Memuat data rapor…</div>
+  <div id="errorBox" class="error-box hidden"></div>
+  <main id="pages" class="pages hidden"></main>
+  <script type="module" src="report.js"></script>
+</body>
+</html>
