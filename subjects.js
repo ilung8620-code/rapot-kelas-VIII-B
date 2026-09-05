@@ -2,62 +2,62 @@ export const SUBJECTS = [
   {
     code: "PAI",
     name: "Pendidikan Agama Islam dan Budi Pekerti",
-    topic: "iman kepada kitab-kitab Allah, perilaku amanah dan jujur, tata cara salat sunah (gerhana, istiska, jenazah), serta sejarah ilmu pengetahuan masa Bani Umayyah"
+    topic: "adab menggunakan media sosial, rukhsah sebagai keringanan dalam beribadah, menghindari minuman keras, judi, dan pertengkaran, serta kemajuan ilmu pengetahuan pada masa Bani Abbasiyah"
   },
   {
     code: "PANCASILA",
     name: "Pendidikan Pancasila",
-    topic: "kedudukan dan fungsi Pancasila, tata urutan peraturan perundang-undangan di Indonesia, serta kesadaran hukum dalam kehidupan berbangsa"
+    topic: "keberagaman suku, agama, ras, dan antargolongan, kerja sama dalam berbagai bidang kehidupan, serta semangat menjaga keutuhan Negara Kesatuan Republik Indonesia"
   },
   {
     code: "MATEMATIKA",
     name: "Matematika",
-    topic: "penyederhanaan bentuk aljabar, konsep relasi dan fungsi, serta penyelesaian sistem persamaan linear dua variabel (SPLDV)"
+    topic: "penerapan teorema Pythagoras, unsur dan luas permukaan serta volume bangun ruang sisi datar, dan penyajian data serta konsep peluang"
   },
   {
     code: "BINDO",
     name: "Bahasa Indonesia",
-    topic: "menganalisis teks laporan hasil observasi, merancang iklan, slogan, dan poster, serta menyusun artikel ilmiah populer"
+    topic: "menganalisis teks eksplanasi, menyusun teks ulasan dan teks persuasi, serta menelaah dan memerankan teks drama"
   },
   {
     code: "IPA",
     name: "Ilmu Pengetahuan Alam",
-    topic: "pengenalan sel, sistem pencernaan manusia, zat aditif dan adiktif, serta usaha, energi, dan pesawat sederhana"
+    topic: "tekanan zat dan penerapannya pada makhluk hidup, sistem pernapasan dan sistem ekskresi manusia, getaran, gelombang, dan bunyi, serta cahaya dan alat optik"
   },
   {
     code: "IPS",
     name: "Ilmu Pengetahuan Sosial",
-    topic: "kondisi geografis dan pelestarian sumber daya alam Indonesia, kemajemukan masyarakat, serta dinamika mobilitas sosial"
+    topic: "mobilitas sosial dan perubahan masyarakat, konflik serta integrasi sosial, perlawanan terhadap kolonialisme dan tumbuhnya pergerakan kebangsaan, serta pemberdayaan masyarakat"
   },
   {
     code: "BING",
     name: "Bahasa Inggris",
-    topic: "ungkapan meminta perhatian dan pendapat, menyatakan kemampuan dan kemauan (ability & willingness), serta teks instruksi atau larangan sederhana"
+    topic: "descriptive text tentang tempat dan bangunan bersejarah, recount text pengalaman masa lampau (simple past tense), serta ungkapan memberi dan meminta informasi terkait suatu kejadian"
   },
   {
     code: "PJOK",
     name: "Pendidikan Jasmani, Olahraga, dan Kesehatan",
-    topic: "variasi gerak spesifik permainan bola besar dan kecil, dasar seni beladiri (pencak silat), serta penyusunan program kebugaran jasmani"
+    topic: "variasi gerak dasar senam lantai, aktivitas gerak berirama, keterampilan dasar aktivitas air, serta pola hidup sehat dan pencegahan bahaya pergaulan bebas"
   },
   {
     code: "INFORMATIKA",
     name: "Informatika",
-    topic: "berpikir komputasional (fungsi dan himpunan), jaringan komputer lokal dan internet, serta penggunaan aplikasi perkantoran terintegrasi"
+    topic: "analisis data menggunakan aplikasi lembar kerja, algoritma dan pemrograman visual berbasis blok, serta dampak sosial informatika dan praktik lintas bidang"
   },
   {
     code: "SENI",
     name: "Seni dan Budaya",
-    topic: "konsep dan prosedur menggambar model berbagai bahan, pembuatan gambar ilustrasi, serta apresiasi karya seni rupa dua dimensi"
+    topic: "konsep dan prosedur menggambar poster dan komik, pembuatan karya seni grafis dengan teknik cetak sederhana, serta apresiasi dan penyajian pameran karya seni rupa"
   },
   {
     code: "MADURA",
     name: "Muatan Lokal: Bahasa Madura",
-    topic: "pemahaman cerita pendek (carèta pandha'), tembang macapat Madura, serta teknik wawancara dengan memperhatikan unggah-ungguh basa"
+    topic: "pemahaman cerita rakyat Madura (carèta ra'yat), penulisan dan pemaknaan parèbhasan serta tembhang macapat, serta praktik pacaturan sesuai onggu-onggu bhâsa"
   },
   {
     code: "ASWAJA",
     name: "Aswaja",
-    topic: "pengertian mazhab, konsep bermadzhab (taklid, ittiba', dan tarjih), serta pengenalan struktur keorganisasian IPNU dan IPPNU"
+    topic: "amaliyah warga Nahdlatul Ulama (tahlil, istighotsah, dan ziarah kubur), tradisi keagamaan seperti maulid dan haul, serta sejarah berdirinya NU beserta lembaga dan badan otonomnya"
   }
 ];
 
